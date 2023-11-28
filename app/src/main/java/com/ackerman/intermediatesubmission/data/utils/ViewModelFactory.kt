@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ackerman.intermediatesubmission.data.di.Injection
 import com.ackerman.intermediatesubmission.data.repository.StoryaRepository
 import com.ackerman.intermediatesubmission.data.view_ui.auth.LoginViewModel
+import com.ackerman.intermediatesubmission.data.view_ui.auth.RegisterViewModel
 
 class ViewModelFactory (private val repository: StoryaRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -13,6 +14,9 @@ class ViewModelFactory (private val repository: StoryaRepository) : ViewModelPro
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)){
             return LoginViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
+            return RegisterViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
