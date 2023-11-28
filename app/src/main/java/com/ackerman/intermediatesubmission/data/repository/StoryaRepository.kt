@@ -8,6 +8,8 @@ import com.ackerman.intermediatesubmission.data.local.UserModel
 import com.ackerman.intermediatesubmission.data.local.UserPreference
 import com.ackerman.intermediatesubmission.data.remote.api.ApiService
 import com.ackerman.intermediatesubmission.data.remote.response.LoginRequest
+import com.ackerman.intermediatesubmission.data.remote.response.RegisterRequest
+import com.ackerman.intermediatesubmission.data.remote.response.RegisterResponse
 import com.ackerman.intermediatesubmission.data.remote.response.ResponseLogin
 
 class StoryaRepository (private val userPreference: UserPreference, private val apiService: ApiService) {
@@ -38,6 +40,16 @@ class StoryaRepository (private val userPreference: UserPreference, private val 
         userPreference.logout()
     }
 
+    fun registerUser(name: String, email: String, password: String): LiveData<com.ackerman.intermediatesubmission.data.utils.Result<RegisterResponse>> = liveData {
+        emit(com.ackerman.intermediatesubmission.data.utils.Result.Loading)
+        try {
+            val response = apiService.userRegister(RegisterRequest(name, email, password))
+            emit(com.ackerman.intermediatesubmission.data.utils.Result.Success(response))
+        } catch (e: Exception) {
+            Log.d("Register", e.message.toString())
+            emit(com.ackerman.intermediatesubmission.data.utils.Result.Error(e.message.toString()))
+        }
+    }
 
 
     companion object {
