@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:alpha="0"
+        android:text="@string/login"
+        android:textColor="@color/grey"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:alpha="0"
+        android:text="@string/app_name"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginTitle" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/covr"
+        android:contentDescription="@string/aot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subTitle" />
+
+
+    <TextView
+        android:id="@+id/tv_email_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:alpha="0"
+        android:text="@string/tv_Email"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_email_user"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:alpha="0"
+        android:hint="@string/tl_Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email_user"
+        app:startIconDrawable="@drawable/ic_account">
+
+        <com.ackerman.intermediatesubmission.data.view_ui.customview.EmailEditText
+            android:id="@+id/edt_email_user"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_password_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:alpha="0"
+        android:text="@string/tv_Password"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tl_email_user" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_password_user"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:alpha="0"
+        android:hint="@string/tl_Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_password_user"
+        app:startIconDrawable="@drawable/ic_lock">
+
+        <com.ackerman.intermediatesubmission.data.view_ui.customview.PasswordEditText
+            android:id="@+id/edt_password_user"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/ButtonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="12dp"
+        android:alpha="0"
+        android:background="@color/grey"
+        android:backgroundTint="@color/grey"
+        android:text="@string/btn_login"
+        app:layout_constraintBottom_toTopOf="@id/reg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/reg"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0"
+        android:text="@string/txtRegister"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:indeterminateTint="@color/grey"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

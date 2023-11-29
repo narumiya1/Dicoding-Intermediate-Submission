@@ -9,16 +9,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.ackerman.intermediatesubmission.MainActivity
-import com.ackerman.intermediatesubmission.R
 import com.ackerman.intermediatesubmission.data.local.UserModel
 import com.ackerman.intermediatesubmission.data.utils.ViewModelFactory
-import com.ackerman.intermediatesubmission.databinding.ActivityLogBinding
+import com.ackerman.intermediatesubmission.databinding.ActivityLognBinding
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private val loginBinding: ActivityLogBinding by lazy {
-        ActivityLogBinding.inflate(layoutInflater)
+    private val loginBinding: ActivityLognBinding by lazy {
+        ActivityLognBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(loginBinding.root)
 
         viewModelSetUp()
-        animationSetUp()
+        playAnimation()
 
         loginBinding.btnLogin.setOnClickListener {
             actionLogin()
@@ -39,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun animationSetUp() {
+    private fun playAnimation() {
 
         // Title
         val titleLogin =
@@ -62,6 +61,8 @@ class LoginActivity : AppCompatActivity() {
         // Button
         val buttonLogin =
             ObjectAnimator.ofFloat(loginBinding.btnLogin, View.ALPHA, 1f).setDuration(500)
+        val reg =
+            ObjectAnimator.ofFloat(loginBinding.reg, View.ALPHA, 1f).setDuration(500)
 
         val title = AnimatorSet().apply {
             playTogether(titleLogin, subTitleLogin)
@@ -76,12 +77,15 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val button = AnimatorSet().apply {
-            playTogether(buttonLogin)
+            playTogether(buttonLogin,reg)
         }
 
         AnimatorSet().apply {
             playSequentially(
-                title, email, password, button
+                title,
+                email,
+                password,
+                button
             )
             start()
         }
