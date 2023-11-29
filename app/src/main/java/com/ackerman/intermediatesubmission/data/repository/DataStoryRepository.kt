@@ -1,18 +1,20 @@
 package com.ackerman.intermediatesubmission.data.repository
 
 import android.util.Log
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.ackerman.intermediatesubmission.data.local.UserModel
 import com.ackerman.intermediatesubmission.data.local.UserPreference
 import com.ackerman.intermediatesubmission.data.remote.api.ApiService
-import com.ackerman.intermediatesubmission.data.remote.response.LoginRequest
-import com.ackerman.intermediatesubmission.data.remote.response.RegisterRequest
-import com.ackerman.intermediatesubmission.data.remote.response.RegisterResponse
-import com.ackerman.intermediatesubmission.data.remote.response.ResponseLogin
+import com.ackerman.intermediatesubmission.data.remote.response.*
+import com.ackerman.intermediatesubmission.data.view_ui.adapter.StoryPagingSource
 
-class StoryaRepository (private val userPreference: UserPreference, private val apiService: ApiService) {
+class DataStoryRepository (private val userPreference: UserPreference, private val apiService: ApiService) {
 
 
     fun loginUser(email:String, password:String) : LiveData<com.ackerman.intermediatesubmission.data.utils.Result<ResponseLogin>> = liveData{
@@ -50,17 +52,30 @@ class StoryaRepository (private val userPreference: UserPreference, private val 
             emit(com.ackerman.intermediatesubmission.data.utils.Result.Error(e.message.toString()))
         }
     }
+    fun getAllzStory(): LiveData<PagingData<StoryResponse.StoryApp>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService, userPreference)
+            }
+        ).liveData
+    }
+
+    fun getCurrentUserData(): LiveData<UserModel> {
+        return userPreference.getUserData().asLiveData()
+
+    }
 
 
     companion object {
         @Volatile
-        private var instance: StoryaRepository? = null
+        private var instance: DataStoryRepository? = null
         fun getInstance(
             preferences: UserPreference,
             apiService: ApiService
-        ): StoryaRepository =
+        ): DataStoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryaRepository(preferences, apiService)
+                instance ?: DataStoryRepository(preferences, apiService)
             }.also { instance = it }
     }
 }
