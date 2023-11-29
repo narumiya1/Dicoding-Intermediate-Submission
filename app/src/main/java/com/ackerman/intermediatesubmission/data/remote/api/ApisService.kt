@@ -1,9 +1,6 @@
 package com.ackerman.intermediatesubmission.data.remote.api
 
-import com.ackerman.intermediatesubmission.data.remote.response.LoginRequest
-import com.ackerman.intermediatesubmission.data.remote.response.RegisterRequest
-import com.ackerman.intermediatesubmission.data.remote.response.RegisterResponse
-import com.ackerman.intermediatesubmission.data.remote.response.ResponseLogin
+import com.ackerman.intermediatesubmission.data.remote.response.*
 import retrofit2.http.*
 
 interface ApiService {
@@ -17,5 +14,12 @@ interface ApiService {
     suspend fun userRegister(
         @Body request: RegisterRequest
     ): RegisterResponse
+
+    @GET("stories")
+    suspend fun getAllStory(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): StoryResponse
 
 }
