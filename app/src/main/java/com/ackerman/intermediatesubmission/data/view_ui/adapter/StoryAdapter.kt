@@ -29,7 +29,7 @@ class StoryAdapter: PagingDataAdapter<StoryResponse.StoryApp, StoryAdapter.Story
 
             binding.root.setOnClickListener {
                 val intent = Intent(itemView.context, DetailStoryActivity::class.java).apply {
-//                    putExtra(DetailStoryActivity.EXTRA_DETAIL, story)
+                    putExtra(DetailStoryActivity.EXTRA_DETAIL, story)
                 }
 
                 val optionsCompat: ActivityOptionsCompat =
