@@ -1,11 +1,10 @@
 package com.ackerman.intermediatesubmission
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +13,7 @@ import com.ackerman.intermediatesubmission.data.view_ui.adapter.LoadingAdapter
 import com.ackerman.intermediatesubmission.data.view_ui.adapter.StoryAdapter
 import com.ackerman.intermediatesubmission.data.view_ui.auth.LoginActivity
 import com.ackerman.intermediatesubmission.data.view_ui.auth.LoginViewModel
+import com.ackerman.intermediatesubmission.data.view_ui.story.PostStoryActivity
 import com.ackerman.intermediatesubmission.data.view_ui.story.StoryViewModel
 import com.ackerman.intermediatesubmission.databinding.ActivityMainBinding
 
@@ -26,10 +26,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var storyAdapter: StoryAdapter
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+
+        supportActionBar?.hide()
 
         mainBinding.rvStory.layoutManager = LinearLayoutManager(this)
         mainBinding.rvStory.setHasFixedSize(true)
@@ -42,12 +45,25 @@ class MainActivity : AppCompatActivity() {
         storyViewModel.getCurrentUser().observe(this) {
             if (it.isLogin) {
                 getStory()
+                mainBinding.imgLogo.setText("Hello, ${it.name}")
                 showProgress(false)
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
         }
+
+        mainBinding.btnAddStory.setOnClickListener {
+            startActivity(Intent(this, PostStoryActivity::class.java))
+        }
+
+        mainBinding.btnLanguage.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+        mainBinding.btnLogout.setOnClickListener {
+            logout()
+        }
+
     }
 
     private fun viewModelSetUp() {
@@ -74,11 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menus, menu)
-        return true
-    }
+
 
     private fun logout() {
         loginViewModel.logout()
@@ -86,15 +98,5 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.language -> {
-                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
-            }
-            R.id.logout -> {
-                logout()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 }
