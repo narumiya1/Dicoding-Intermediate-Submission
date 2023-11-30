@@ -1,8 +1,6 @@
 package com.ackerman.intermediatesubmission.data.view_ui.story
 
 import android.Manifest
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission_group.CAMERA
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -16,16 +14,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.ackerman.intermediatesubmission.MainActivity
 import com.ackerman.intermediatesubmission.data.utils.ViewModelFactory
 import com.ackerman.intermediatesubmission.data.utils.reduceFileImage
 import com.ackerman.intermediatesubmission.data.utils.rotateBitmap
 import com.ackerman.intermediatesubmission.data.utils.uriToFile
-import com.ackerman.intermediatesubmission.data.view_ui.auth.RegisterViewModel
-import com.ackerman.intermediatesubmission.databinding.ActivityLognBinding
 import com.ackerman.intermediatesubmission.databinding.ActivityPostStoryBinding
-import com.ackerman.intermediatesubmission.databinding.ActivityRegisterBinding
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -41,12 +35,10 @@ class PostStoryActivity : AppCompatActivity() {
     private val postStoryViewModel by viewModels<PostStoryViewModel> {
         ViewModelFactory.getInstance(this)
     }
-//    private lateinit var postStoryBinding: ActivityPostStoryBinding
-//    private lateinit var  postStoryViewModel: PostStoryViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        postStoryBinding = ActivityPostStoryBinding.inflate(layoutInflater)
         setContentView(postStoryBinding.root)
 
         if (!allPermissionGranted()) {
@@ -56,8 +48,6 @@ class PostStoryActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
-        val viewModelFactory = ViewModelFactory.getInstance(postStoryBinding.root.context)
-//        postStoryViewModel = ViewModelProvider(this, viewModelFactory)[PostStoryViewModel::class.java]
 
         postStoryBinding.btnGallery.setOnClickListener {
             startGallery()
