@@ -7,6 +7,7 @@ import com.ackerman.intermediatesubmission.data.di.Injection
 import com.ackerman.intermediatesubmission.data.repository.DataStoryRepository
 import com.ackerman.intermediatesubmission.data.view_ui.auth.LoginViewModel
 import com.ackerman.intermediatesubmission.data.view_ui.auth.RegisterViewModel
+import com.ackerman.intermediatesubmission.data.view_ui.story.PostStoryViewModel
 import com.ackerman.intermediatesubmission.data.view_ui.story.StoryViewModel
 
 class ViewModelFactory (private val repository: DataStoryRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -22,7 +23,9 @@ class ViewModelFactory (private val repository: DataStoryRepository) : ViewModel
         if (modelClass.isAssignableFrom(StoryViewModel::class.java)) {
             return StoryViewModel(repository) as T
         }
-
+        if (modelClass.isAssignableFrom(PostStoryViewModel::class.java)) {
+            return PostStoryViewModel(repository) as T
+        }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
 
