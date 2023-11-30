@@ -47,7 +47,7 @@ class PasswordEditText : AppCompatEditText {
                         s.isEmpty() -> {
                             null
                         }
-                        s.length < 6 -> {
+                        s.length < 8 -> {
                             resources.getString(R.string.minimum_password)
                         }
                         else -> {
