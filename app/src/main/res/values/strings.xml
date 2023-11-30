@@ -1,3 +1,34 @@
 <resources>
-    <string name="app_name">intermediate submission</string>
+    <string name="app_name">Intermediate Submission</string>
+    <string name="login">Login</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="txt_Register">I don\'t have an account</string>
+    <string name="tv_Register">\tRegister</string>
+    <string name="tv_Email" translatable="false">Email</string>
+    <string name="tl_Email">Enter your email</string>
+    <string name="email_not_valid">Email not Valid</string>
+    <string name="tv_Password">Password</string>
+    <string name="tl_Password">Enter Password</string>
+    <string name="minimum_password">minimal password 8 karakter</string>
+    <string name="txtRegister">Tidak punya akun? Registrasi </string>
+    <string name="tvRegister"> Registrasi</string>
+    <string name="btn_add_story">Add Story</string>
+    <string name="photo_story">Photo Story</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="tl_Username">Enter Username</string>
+    <string name="sudah_punya_akun">Sudah punya akun? Login</string>
+    <string name="message_error">error</string>
+    <string name="btn_muat_ulang">Reload</string>
+    <string name="aot">aot</string>
+    <string name="logout">Logout</string>
+    <string name="change_lang">Change Language</string>
+    <string name="btn_upload">Upload</string>
+    <string name="btn_gallery">Gallery</string>
+    <string name="btn_camera">Camera</string>
+    <string name="edt_desc">Description</string>
+    <string name="btn_capture">Capture</string>
+    <string name="btn_swicth_camera">Switch Camera</string>
+    <string name="hello">Hello</string>
+
 </resources>
