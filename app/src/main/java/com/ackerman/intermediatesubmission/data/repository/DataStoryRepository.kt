@@ -13,6 +13,8 @@ import com.ackerman.intermediatesubmission.data.local.UserPreference
 import com.ackerman.intermediatesubmission.data.remote.api.ApiService
 import com.ackerman.intermediatesubmission.data.remote.response.*
 import com.ackerman.intermediatesubmission.data.view_ui.adapter.StoryPagingSource
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class DataStoryRepository (private val userPreference: UserPreference, private val apiService: ApiService) {
 
@@ -66,7 +68,18 @@ class DataStoryRepository (private val userPreference: UserPreference, private v
 
     }
 
+    fun postStory(token: String, file: MultipartBody.Part, description: RequestBody):
+            LiveData<com.ackerman.intermediatesubmission.data.utils.Result<PostStoryResponse>> = liveData {
 
+        emit(com.ackerman.intermediatesubmission.data.utils.Result.Loading)
+        try {
+            val response = apiService.addStory(token, file, description)
+            emit(com.ackerman.intermediatesubmission.data.utils.Result.Success(response))
+        } catch (e: Exception) {
+            Log.d("Register", e.message.toString())
+            emit(com.ackerman.intermediatesubmission.data.utils.Result.Error(e.message.toString()))
+        }
+    }
     companion object {
         @Volatile
         private var instance: DataStoryRepository? = null
