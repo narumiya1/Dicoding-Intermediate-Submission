@@ -9,8 +9,9 @@ import okhttp3.RequestBody
 
 class PostStoryViewModel(private val storyRepository: DataStoryRepository): ViewModel() {
 
-    fun postStory(token: String, file: MultipartBody.Part, desc : RequestBody) =
-        storyRepository.postStory(token, file, desc)
+    fun postStory(token: String, file: MultipartBody.Part, desc : RequestBody,
+    latitude: Double?, longitude : Double?) =
+        storyRepository.postStory(token, file, desc, latitude, longitude)
 
     fun getUser(): LiveData<UserModel> {
         return storyRepository.getCurrentUserData()
