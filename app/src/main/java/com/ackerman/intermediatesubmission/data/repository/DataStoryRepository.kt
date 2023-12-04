@@ -12,6 +12,7 @@ import com.ackerman.intermediatesubmission.data.local.UserModel
 import com.ackerman.intermediatesubmission.data.local.UserPreference
 import com.ackerman.intermediatesubmission.data.remote.api.ApiService
 import com.ackerman.intermediatesubmission.data.remote.response.*
+import com.ackerman.intermediatesubmission.data.utils.Result
 import com.ackerman.intermediatesubmission.data.view_ui.adapter.StoryPagingSource
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -63,17 +64,28 @@ class DataStoryRepository (private val userPreference: UserPreference, private v
         ).liveData
     }
 
+    fun getAllzStoryWithLocation(token: String) : LiveData<com.ackerman.intermediatesubmission.data.utils.Result<StoryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStoryLocation(token, 1)
+            emit(com.ackerman.intermediatesubmission.data.utils.Result.Success(response))
+        }catch (e: Exception){
+            Log.d("Err", e.message.toString())
+            emit(com.ackerman.intermediatesubmission.data.utils.Result.Error(e.message.toString()))
+        }
+    }
+
     fun getCurrentUserData(): LiveData<UserModel> {
         return userPreference.getUserData().asLiveData()
 
     }
 
-    fun postStory(token: String, file: MultipartBody.Part, description: RequestBody):
+    fun postStory(token: String, file: MultipartBody.Part, description: RequestBody, lat: Double?, lon: Double?):
             LiveData<com.ackerman.intermediatesubmission.data.utils.Result<PostStoryResponse>> = liveData {
 
         emit(com.ackerman.intermediatesubmission.data.utils.Result.Loading)
         try {
-            val response = apiService.addStory(token, file, description)
+            val response = apiService.addStory(token, file, description, lat, lon)
             emit(com.ackerman.intermediatesubmission.data.utils.Result.Success(response))
         } catch (e: Exception) {
             Log.d("Register", e.message.toString())
