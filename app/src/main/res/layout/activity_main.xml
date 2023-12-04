@@ -65,7 +65,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:tint="@color/white"/>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_maps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/btn_maps_story"
+        android:backgroundTint="@color/primary_color"
+        android:src="@drawable/ic_baseline_map_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_add_story"
+        app:tint="@color/white"/>
     <ProgressBar
         android:id="@+id/progress_circular"
         android:layout_width="60dp"

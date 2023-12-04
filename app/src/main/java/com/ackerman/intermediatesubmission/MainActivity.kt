@@ -64,6 +64,10 @@ class MainActivity : AppCompatActivity() {
             logout()
         }
 
+        mainBinding.btnMaps.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
+        }
+
     }
 
     private fun viewModelSetUp() {
