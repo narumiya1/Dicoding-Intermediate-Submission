@@ -30,5 +30,8 @@
     <string name="btn_capture">Capture</string>
     <string name="btn_swicth_camera">Switch Camera</string>
     <string name="hello">Hello</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="btn_maps_story">Maps With Story</string>
+    <string name="tmbh_lokasi">Tambahkan Lokasi</string>
 
 </resources>
