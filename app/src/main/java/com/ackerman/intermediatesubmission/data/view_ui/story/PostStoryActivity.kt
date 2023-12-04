@@ -1,6 +1,7 @@
 package com.ackerman.intermediatesubmission.data.view_ui.story
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -20,6 +21,8 @@ import com.ackerman.intermediatesubmission.data.utils.reduceFileImage
 import com.ackerman.intermediatesubmission.data.utils.rotateBitmap
 import com.ackerman.intermediatesubmission.data.utils.uriToFile
 import com.ackerman.intermediatesubmission.databinding.ActivityPostStoryBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -35,6 +38,9 @@ class PostStoryActivity : AppCompatActivity() {
     private val postStoryViewModel by viewModels<PostStoryViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var lat: Double? = null
+    private var lon: Double? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +54,7 @@ class PostStoryActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         postStoryBinding.btnGallery.setOnClickListener {
             startGallery()
@@ -69,8 +76,40 @@ class PostStoryActivity : AppCompatActivity() {
             uploadStory()
         }
 
+        postStoryBinding.switchLocation.setOnClickListener {
+            myLocation()
+        }
+
     }
 
+    @SuppressLint("MissingPermission")
+    private fun myLocation() {
+        if (ContextCompat.checkSelfPermission(this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    lat = location.latitude
+                    lon = location.longitude
+                    Toast.makeText(this, "Lokasi Tersimpan", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Aktifkan Lokasi Terlebih Dahulu", Toast.LENGTH_LONG).show()
+                }
+            }
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            (Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
+    }
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { accessLoc: Boolean ->
+            if (accessLoc) {
+                myLocation()
+            } else {
+                Toast.makeText(this, "Harap Aktifkan Lokasi", Toast.LENGTH_LONG).show()
+            }
+        }
     private fun startCameraX() {
         val intent = Intent(this, CameraActivity::class.java)
         launcherIntentCameraX.launch(intent)
@@ -104,7 +143,7 @@ class PostStoryActivity : AppCompatActivity() {
                     requestImageFile
                 )
                 postStoryViewModel.getUser().observe(this) {
-                    postStoryViewModel.postStory(token, imageMultipart, description)
+                    postStoryViewModel.postStory(token, imageMultipart, description,lat, lon)
                         .observe(this@PostStoryActivity) { addStory ->
                             when (addStory) {
                                 is com.ackerman.intermediatesubmission.data.utils.Result.Success -> {
