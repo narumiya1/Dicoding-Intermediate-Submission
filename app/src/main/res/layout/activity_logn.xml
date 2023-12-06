@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/loginTitle"
@@ -38,10 +46,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/covr"
         android:contentDescription="@string/aot"
@@ -62,7 +70,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tl_email_user"
@@ -84,7 +92,7 @@
             style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_marginTop="4dp"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -123,18 +131,18 @@
             style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
     <Button
         android:id="@+id/btnLogin"
         style="@style/ButtonSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="12dp"
@@ -142,7 +150,8 @@
         android:background="@color/grey"
         android:backgroundTint="@color/grey"
         android:text="@string/btn_login"
-        app:layout_constraintBottom_toTopOf="@id/reg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_password_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -153,13 +162,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:alpha="0"
         android:text="@string/txtRegister"
         android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <ProgressBar
         android:id="@+id/progress_circular"
@@ -174,3 +185,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
